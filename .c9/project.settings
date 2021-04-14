@@ -4,6 +4,7 @@
     },
     "extensions": {
         "@aws.profile": "profile:default",
+        "@git.confirmSync": false,
         "@git.enableSmartCommit": true
     },
     "general": {
