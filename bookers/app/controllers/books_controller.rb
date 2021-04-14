@@ -13,28 +13,28 @@ class BooksController < ApplicationController
   end
 
   def create
-    flash[:notice] = "successfully"
     # １. データを新規登録するためのインスタンス作成
-    book = Book.new(book_params)
+    @book = Book.new(book_params)
     # ２. データをデータベースに保存するためのsaveメソッド実行
-    if book.save
+    if @book.save
+      flash[:notice] = "successfully"
       # ３. リダイレクト
-      redirect_to book_path(book.id)
+      redirect_to book_path(@book.id)
     else
-      flash[:notice] = "error"
-      redirect_to '/books'
+      @books = Book.all
+      render :index
     end
 
   end
 
   def update
-    flash[:notice] = "successfully"
-    book = Book.find(params[:id])
-    if book.update(book_params)
-      redirect_to book_path(book.id)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
+      flash[:notice] = "successfully"
+      redirect_to book_path(@book.id)
     else
-      flash[:notice] = "error"
-      redirect_to edit_book_path(book.id)
+      @books=Book.all
+      render :edit
     end
   end
 
